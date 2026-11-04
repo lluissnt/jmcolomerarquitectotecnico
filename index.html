@@ -462,7 +462,15 @@
 
   /* ---------- SOBRE / INICIO ---------- */
   .about{background:var(--graphite-2);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);}
-  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+  .about-grid{display:grid;grid-template-columns:1.08fr 0.92fr;gap:60px;align-items:center;}
+  .about-text .formacion{margin-top:34px;}
+  .about-foto img{
+    width:100%;height:auto;display:block;
+    /* Degradado de opacidad en los bordes para que la foto se funda con el
+       fondo de la sección en vez de recortarse en un rectángulo duro. */
+    -webkit-mask-image:radial-gradient(ellipse 66% 68% at 50% 42%, #000 34%, rgba(0,0,0,.78) 58%, rgba(0,0,0,.28) 80%, transparent 95%);
+    mask-image:radial-gradient(ellipse 66% 68% at 50% 42%, #000 34%, rgba(0,0,0,.78) 58%, rgba(0,0,0,.28) 80%, transparent 95%);
+  }
   .about-text p{color:var(--grey-2);margin-bottom:18px;font-size:1.05rem;}
   .about-text p strong{color:var(--white);font-weight:600;}
   .about-badges{display:flex;gap:10px;margin-top:26px;flex-wrap:wrap;}
@@ -722,6 +730,9 @@
   /* ---------- RESPONSIVE (prioridad vertical / móvil) ---------- */
   @media (max-width:900px){
     .about-grid,.contact-grid{grid-template-columns:1fr;gap:44px;}
+    /* En vertical el retrato se queda en una columna estrecha y centrado:
+       a todo lo ancho resultaba desproporcionado. */
+    .about-foto{max-width:340px;margin:0 auto;}
     .services-grid{grid-template-columns:1fr;}
     .track-grid{grid-template-columns:1fr;gap:16px;}
     .rep-divider{display:none;}
@@ -887,8 +898,6 @@
         <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Muro de Alcoy, Alicante</div>
         <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20 15 15 0 010-20z"/></svg>We speak English</div>
       </div>
-    </div>
-    <div class="reveal">
       <div class="formacion">
         <h3>Formación y colegiación</h3>
         <div class="form-item">
@@ -904,6 +913,16 @@
           <small>Colegio Oficial de Aparejadores, Arquitectos Técnicos e Ingenieros de Edificación de Alicante.</small>
         </div>
       </div>
+    </div>
+
+    <!-- El retrato se funde con el fondo mediante una máscara degradada: así
+         no aparece como un recorte rectangular pegado sobre la sección. -->
+    <div class="about-foto reveal">
+      <picture>
+        <source media="(max-width:700px)" srcset="img/juanma-retrato-sm.jpg">
+        <img src="img/juanma-retrato.jpg" width="760" height="1140" loading="lazy" decoding="async"
+             alt="Juan Manuel Colomer Prats, Arquitecto Técnico e Ingeniero de Edificación">
+      </picture>
     </div>
   </div>
 </section>
