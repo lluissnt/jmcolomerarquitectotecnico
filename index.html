@@ -643,6 +643,11 @@
     color:var(--white);display:flex;align-items:center;justify-content:center;
     transition:background .25s,border-color .25s;
   }
+  /* El display:flex de arriba ganaba al atributo hidden, así que en las obras
+     de una sola foto las flechas seguían viéndose. */
+  .lb-btn[hidden]{
+    display:none;
+  }
   .lb-btn:hover{background:var(--gold);border-color:var(--gold);color:var(--graphite);}
   .lb-btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
   .lb-btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;}
@@ -1006,6 +1011,14 @@
 
   <div class="marquee" id="marquee" role="region" aria-label="Obras realizadas">
     <div class="marquee-track" id="marqueeTrack">
+      <figure class="m-item" data-obra="prado-17">
+        <picture>
+          <source media="(min-width:701px)" srcset="img/prado-17-lg.jpg">
+          <img src="img/prado-17-sm.jpg" width="560" height="420" data-full="img/prado-17-lg.jpg"
+               alt="Prado 17 — vivienda unifamiliar con porche de arcos y piscina" decoding="sync" loading="lazy">
+        </picture>
+        <figcaption class="m-cap"><span class="m-cat">Vivienda unifamiliar</span><span class="m-title">Prado 17</span></figcaption>
+      </figure>
       <figure class="m-item">
         <picture>
           <source media="(min-width:701px)" srcset="img/casas-pastor-4-lg.jpg">
@@ -1635,6 +1648,7 @@
        abre su galería: son 6 MB que no tienen por qué pesar en la carga. */
     var GALERIAS = {
       'viena-11':      {titulo:'Viena 11',       cat:'Vivienda unifamiliar',     n:15},
+      'prado-17':      {titulo:'Prado 17',       cat:'Vivienda unifamiliar',     n:6},
       'la-alberca-1':  {titulo:'La Alberca 1',   cat:'Vivienda unifamiliar',     n:8},
       'viena-16':      {titulo:'Viena 16',       cat:'Vivienda unifamiliar',     n:9},
       'roma-9':        {titulo:'Roma 9',         cat:'Vivienda unifamiliar',     n:17},
@@ -1707,6 +1721,10 @@
 
     // Las obras de una sola foto de la tira: su galería es esa misma foto
     function galeriaDeItem(item){
+      // Las obras de la tira con varias fotos llevan data-obra y abren su
+      // galeria completa; el resto muestran unicamente su propia imagen.
+      var g = GALERIAS[item.dataset.obra];
+      if(g) return g;
       var idx = parseInt(item.dataset.idx, 10);
       var o = obras[idx];
       return {titulo:o.title, cat:o.cat, fotos:[o.src]};
